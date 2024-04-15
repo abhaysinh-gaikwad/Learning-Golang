@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Test</title>
+</head>
+<body>
+    <h1>Test CORS Policy</h1>
+    <button id="testCors">Send Request</button>
+    <pre id="result"></pre>
+
+    <script>
+        document.getElementById('testCors').addEventListener('click', function() {
+            const url = 'https://tya0jd5xu5.execute-api.ap-south-1.amazonaws.com/wc-dev/wc-user/initiate-mobile';
+            const data = {
+                phone: '+919423527917',
+                user_id: '222w079v'
+            };
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('result').textContent = `Error: ${error.message}`;
+            });
+        });
+    </script>
+</body>
+</html>
